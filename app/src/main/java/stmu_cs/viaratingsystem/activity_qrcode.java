@@ -12,6 +12,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class activity_qrcode extends AppCompatActivity {
     private Button scan_btn;
+    private Button redeem_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,8 @@ public class activity_qrcode extends AppCompatActivity {
         String value = intent.getStringExtra("start");
         setContentView(R.layout.activity_qrcode);
         scan_btn = findViewById(R.id.scan_btn);
+        redeem_btn = findViewById(R.id.redeem_btn);
+
         scan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,6 +33,13 @@ public class activity_qrcode extends AppCompatActivity {
                 integrator.setBeepEnabled(false);
                 integrator.setBarcodeImageEnabled(false);
                 integrator.initiateScan();
+            }
+        });
+        redeem_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(),RedeemActivity.class);
+                startActivity(intent);
             }
         });
     }
