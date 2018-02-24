@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,12 +11,10 @@
         android:id="@+id/emailInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:layout_alignParentTop="true"
         android:inputType="textEmailAddress"
-        android:text="Email"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="72dp"
-        tools:ignore="MissingConstraints" />
+        android:text="Enter Email"
+         />
 
     <Button
         android:id="@+id/CheckInput"
@@ -24,6 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Log in"
         app:layout_constraintBaseline_toBaselineOf="@+id/emailInput"
-        tools:layout_editor_absoluteX="240dp"
-        tools:ignore="MissingConstraints" />
-</RelativeLayout>
+        tools:layout_editor_absoluteX="240dp" />
+</android.support.constraint.ConstraintLayout>
+
+

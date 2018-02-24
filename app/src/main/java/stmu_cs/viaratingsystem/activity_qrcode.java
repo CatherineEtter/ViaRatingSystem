@@ -16,6 +16,7 @@ public class activity_qrcode extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
         setContentView(R.layout.activity_qrcode);
         scan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
