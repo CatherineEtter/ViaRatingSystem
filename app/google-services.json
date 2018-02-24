@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1097744026361",
+    "firebase_url": "https://viaratingsystem.firebaseio.com",
+    "project_id": "viaratingsystem",
+    "storage_bucket": "viaratingsystem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097744026361:android:5663124b4978eb79",
+        "android_client_info": {
+          "package_name": "stmu_cs.viaratingsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097744026361-d69rb1spfu2spoe5nar1s42ul0mos39i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCriKBg7VfQjStX_6IYIDoJR7Vd33ERJi0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
