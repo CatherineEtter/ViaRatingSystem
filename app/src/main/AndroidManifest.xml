@@ -23,6 +23,7 @@
             android:label="@string/title_activity_redeem"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".EarnedActivity"></activity>
+        <activity android:name=".ClaimRewardsActivity"></activity>
     </application>
 
 

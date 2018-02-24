@@ -49,8 +49,8 @@ public class LoginActivity extends AppCompatActivity {
                                 new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if(!userExists(semail_edittxt, dataSnapshot)) {
-                                            createNewUser(reference, semail_edittxt);
+                                        if(!userExists(semail_edittxt.toLowerCase(), dataSnapshot)) {
+                                            createNewUser(reference, semail_edittxt.toLowerCase());
                                         }
                                     }
 
@@ -70,6 +70,9 @@ public class LoginActivity extends AppCompatActivity {
     private void createNewUser(DatabaseReference reference, String email) {
         Random random = new Random();
         long id = random.nextLong();
+        while(id < 0) {
+            id = random.nextLong();
+        }
         String userId = Long.toString(id);
 
         UserModel newUser = new UserModel(email, userId, "password", 0);
@@ -88,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
     private Boolean userExists(String emailEntered, DataSnapshot snapshot) {
         for(DataSnapshot child : snapshot.getChildren()) {
             String userId = child.getKey();
-            String email = snapshot.child(userId).child("email").getValue().toString();
+            String email = snapshot.child(userId).child("email").getValue().toString().toLowerCase();
 
             if(emailEntered.equals(email)) {
                 int points = Integer.parseInt(snapshot.child(userId).child("points").getValue().toString());

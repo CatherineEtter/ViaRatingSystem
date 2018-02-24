@@ -19,8 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/yourpoints_txt"
-        android:textSize="50dp"
-        android:text="10"/>
+        android:textSize="50dp" />
     <Button
         android:id="@+id/redeem_btn"
         android:layout_width="fill_parent"
