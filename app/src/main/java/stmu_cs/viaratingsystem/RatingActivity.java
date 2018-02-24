@@ -42,12 +42,11 @@ public class RatingActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.rating_bar);
         submitButton = findViewById(R.id.submit_rating_button);
 
-        //TODO: Go to redeem page only when rating is entered
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Float rating = ratingBar.getRating();
-                if(ratingBar.getRating() == 0) {
+                if(rating == 0) {
 
                     Toast toast = Toast.makeText(getBaseContext(),"Please enter a rating",Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL,0,0);
