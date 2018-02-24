@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,8 +25,10 @@ import java.util.Random;
 public class LoginActivity extends AppCompatActivity {
     UserModel user;
     Button button;
+    Button newUserButton;
     EditText editText;
     DatabaseReference reference;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +37,27 @@ public class LoginActivity extends AppCompatActivity {
 
         button = findViewById(R.id.CheckInput);
         editText = findViewById(R.id.emailInput);
+        imageView = findViewById(R.id.via_image);
+        imageView.setImageResource(R.drawable.via_logo);
+        newUserButton = findViewById(R.id.newUser);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(editText.getText().toString() != null) {
                     EditText email_edittxt = (EditText) findViewById(R.id.emailInput);
+                    EditText password_edittxt = (EditText) findViewById(R.id.passwordInput);
+
                     final String semail_edittxt = email_edittxt.getText().toString();
+                    final String spassword_edittxt = password_edittxt.getText().toString();
                     if(semail_edittxt.length() == 0) {
                         //Toast.makeText(getApplicationContext(),"Email cannot be blank!",Toast.LENGTH_SHORT).show();
                         Toast toast = Toast.makeText(getBaseContext(),"Email cannot be blank!",Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL,0,0);
                         toast.show();
+                    }
+                    else if(spassword_edittxt.length() == 0) {
+                        Toast.makeText(getApplicationContext(), "Must enter a password!", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         //user = new UserModel(editText.getText().toString().toLowerCase(), "34567890", "wordpass", 0);
@@ -53,8 +66,9 @@ public class LoginActivity extends AppCompatActivity {
                                 new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if(!userExists(semail_edittxt.toLowerCase(), dataSnapshot)) {
-                                            createNewUser(reference, semail_edittxt.toLowerCase());
+                                        if(!userExists(semail_edittxt.toLowerCase(), spassword_edittxt, dataSnapshot)) {
+                                            Toast.makeText(getApplicationContext(), "Email or password incorrect", Toast.LENGTH_SHORT).show();
+                                            //createNewUser(reference, semail_edittxt.toLowerCase());
                                         }
                                     }
 
@@ -67,6 +81,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 }
+            }
+        });
+
+        newUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -92,16 +113,15 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private Boolean userExists(String emailEntered, DataSnapshot snapshot) {
+    private Boolean userExists(String emailEntered, String passwordEntered, DataSnapshot snapshot) {
         for(DataSnapshot child : snapshot.getChildren()) {
             String userId = child.getKey();
             String email = snapshot.child(userId).child("email").getValue().toString().toLowerCase();
+            String password = snapshot.child(userId).child("password").getValue().toString();
 
-            if(emailEntered.equals(email)) {
+            if(emailEntered.equals(email) && passwordEntered.equals(password)) {
                 int points = Integer.parseInt(snapshot.child(userId).child("points").getValue().toString());
                 String id = snapshot.child(userId).child("userId").getValue().toString();
-                String password = snapshot.child(userId).child("password").getValue().toString();
-
                 user = new UserModel(email, id, password, points);
 
                 Intent intent = new Intent(LoginActivity.this, activity_qrcode.class);
