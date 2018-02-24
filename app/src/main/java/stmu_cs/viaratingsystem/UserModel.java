@@ -1,14 +1,23 @@
 package stmu_cs.viaratingsystem;
 
+import com.google.firebase.database.DatabaseReference;
+
 /**
  * Created by mchri on 2/23/2018.
  */
 
 public class UserModel {
-    private String email;
-    private String userId;
-    private String password;
-    private int points;
+    public String email;
+    public String userId;
+    public String password;
+    public int points;
+
+    public UserModel(String email, String userId, String password, int points) {
+        setEmail(email);
+        setPoints(points);
+        setUserId(userId);
+        setPassword(password);
+    }
 
     public String getEmail() {
         return email;
@@ -41,4 +50,6 @@ public class UserModel {
     public void setPoints(int points) {
         this.points = points;
     }
+
 }
+

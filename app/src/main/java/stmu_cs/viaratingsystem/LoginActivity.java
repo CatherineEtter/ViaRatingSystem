@@ -1,5 +1,6 @@
 package stmu_cs.viaratingsystem;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -27,29 +28,29 @@ public class LoginActivity extends AppCompatActivity {
 
         button = findViewById(R.id.CheckInput);
         editText = findViewById(R.id.emailInput);
-        user = new UserModel();
-        reference = FirebaseDatabase.getInstance().getReference();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(editText.getText().toString() != null) {
-                    user.setEmail(editText.getText().toString().toLowerCase());
-                    user.setPoints(0);
-                    user.setPassword("password");
-                    user.setUserId("12345678");
-                    JSONObject json = new JSONObject();
+                    user = new UserModel(editText.getText().toString().toLowerCase(), "12345678", "password", 0);
+                    reference = FirebaseDatabase.getInstance().getReference(user.userId);
+//                    JSONObject json = new JSONObject();
+//
+//                    try {
+//                        json.put("email", user.getEmail());
+//                        json.put("password", user.getPassword());
+//                        json.put("userId", user.getUserId());
+//                        json.put("points", user.getPoints());
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
 
-                    try {
-                        json.put("email", user.getEmail());
-                        json.put("password", user.getPassword());
-                        json.put("userId", user.getUserId());
-                        json.put("points", user.getPoints());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    Intent intent = new Intent(LoginActivity.this, activity_qrcode.class);
+                    intent.putExtra("QRActivity", "start");
+                    LoginActivity.this.startActivity(intent);
 
 
-                    reference.child("viaratingsystem").child(user.getUserId()).child(json.toString());
+                    //reference.setValue(user);
                 }
             }
         });
