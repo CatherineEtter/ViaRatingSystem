@@ -21,6 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Log in"
-        tools:layout_editor_absoluteX="240dp"
-        tools:layout_editor_absoluteY="72dp" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/emailInput"
+        tools:layout_editor_absoluteX="240dp" />
 </android.support.constraint.ConstraintLayout>
