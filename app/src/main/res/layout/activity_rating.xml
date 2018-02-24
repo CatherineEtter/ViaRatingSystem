@@ -10,13 +10,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bus Number:"
-            android:id="@+id/bus_number_label"/>
+            android:text="Driver Name:"
+            android:id="@+id/driver_name_txt"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/bus_number_label"
+            android:layout_below="@id/driver_name_txt"
+            android:inputType="none"
             android:id="@+id/bus_number_input"/>
 
         <TextView
@@ -27,10 +28,14 @@
             android:text="Rating"/>
 
         <RatingBar
-            android:layout_width="match_parent"
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rating_label"
-            android:id="@+id/rating_bar"/>
+            android:layout_centerHorizontal="true"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.1" />
 
         <TextView
             android:layout_width="match_parent"
@@ -43,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/comments_label"
+            android:inputType="textMultiLine"
             android:id="@+id/comments_input"/>
 
         <Button
