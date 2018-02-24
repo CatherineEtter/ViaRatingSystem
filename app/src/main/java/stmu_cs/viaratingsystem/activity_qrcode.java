@@ -42,7 +42,11 @@ public class activity_qrcode extends AppCompatActivity {
                 Toast.makeText(this,"Scan cancelled",Toast.LENGTH_LONG).show();
             }
             else {
-                Toast.makeText(this,result.getContents(),Toast.LENGTH_LONG).show();
+               // Toast.makeText(this,result.getContents(),Toast.LENGTH_LONG).show();
+                String scanResult = result.getContents();
+                Intent intent = new Intent(getBaseContext(),RatingActivity.class);
+                intent.putExtra("data",scanResult);
+                startActivity(intent);
             }
         }
         else {

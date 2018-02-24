@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name="activity_qrcode"></activity>
+        <activity android:name=".RatingActivity"></activity>
     </application>
 
 </manifest>
