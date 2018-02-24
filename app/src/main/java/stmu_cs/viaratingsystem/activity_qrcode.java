@@ -6,24 +6,36 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class activity_qrcode extends AppCompatActivity {
     private Button scan_btn;
     private Button redeem_btn;
+    private UserModel user;
+    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
+    private TextView pointsDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        UserModel user = (UserModel) intent.getSerializableExtra("User");
+        user = (UserModel) intent.getSerializableExtra("User");
         String value = intent.getStringExtra("start");
         setContentView(R.layout.activity_qrcode);
         scan_btn = findViewById(R.id.scan_btn);
         redeem_btn = findViewById(R.id.redeem_btn);
+        pointsDisplay = findViewById(R.id.yourpoints_txt);
+
+        pointsDisplay.setText(Integer.toString(user.points));
 
         scan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +52,9 @@ public class activity_qrcode extends AppCompatActivity {
         redeem_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(),RedeemActivity.class);
+
+                Intent intent = new Intent(getBaseContext(),ClaimRewardsActivity.class);
+                intent.putExtra("User", user);
                 startActivity(intent);
             }
         });
@@ -57,13 +71,24 @@ public class activity_qrcode extends AppCompatActivity {
                 toast.show();
             }
             else {
+                user.points += 2;
+                pointsDisplay.setText(Integer.toString(user.points));
+                upDateUserDB(user);
                 Intent intent = new Intent(getBaseContext(),RatingActivity.class);
                 intent.putExtra("data",result.getContents());
+                //go to rating screen
                 startActivity(intent);
             }
         }
         else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void upDateUserDB(UserModel user) {
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put(user.userId, user);
+
+        reference.updateChildren(userMap);
     }
 }
