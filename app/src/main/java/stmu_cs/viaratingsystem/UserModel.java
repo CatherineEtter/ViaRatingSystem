@@ -2,6 +2,9 @@ package stmu_cs.viaratingsystem;
 
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by mchri on 2/23/2018.
  */
@@ -52,4 +55,3 @@ public class UserModel {
     }
 
 }
-
