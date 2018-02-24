@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="8dp"
         android:inputType="textEmailAddress"
-        android:text="Enter Email"
+        android:hint="Enter Email"
         app:layout_constraintEnd_toStartOf="@+id/CheckInput"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

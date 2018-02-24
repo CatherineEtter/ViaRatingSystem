@@ -2,13 +2,17 @@ package stmu_cs.viaratingsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,8 +36,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(editText.getText().toString() != null) {
-                    user = new UserModel(editText.getText().toString().toLowerCase(), "12345678", "password", 0);
-                    reference = FirebaseDatabase.getInstance().getReference(user.userId);
+                    EditText email_edittxt = (EditText) findViewById(R.id.emailInput);
+                    String semail_edittxt = email_edittxt.getText().toString();
+                    if(semail_edittxt.length() == 0) {
+                        Toast.makeText(getApplicationContext(),"Email cannot be blank!",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        user = new UserModel(editText.getText().toString().toLowerCase(), "12345678", "password", 0);
+                        reference = FirebaseDatabase.getInstance().getReference(user.userId);
 //                    JSONObject json = new JSONObject();
 //
 //                    try {
@@ -45,12 +55,11 @@ public class LoginActivity extends AppCompatActivity {
 //                        e.printStackTrace();
 //                    }
 
-                    Intent intent = new Intent(LoginActivity.this, activity_qrcode.class);
-                    intent.putExtra("QRActivity", "start");
-                    LoginActivity.this.startActivity(intent);
-
-
-                    //reference.setValue(user);
+                        Intent intent = new Intent(LoginActivity.this, activity_qrcode.class);
+                        intent.putExtra("QRActivity", "start");
+                        LoginActivity.this.startActivity(intent);
+                        //reference.setValue(user);
+                    }
                 }
             }
         });
