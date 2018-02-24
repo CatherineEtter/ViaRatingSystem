@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
@@ -39,6 +40,15 @@ public class RatingActivity extends AppCompatActivity {
         comments = findViewById(R.id.comments_input);
         ratingBar = findViewById(R.id.rating_bar);
         submitButton = findViewById(R.id.submit_rating_button);
+
+        //TODO: Go to redeem page only when rating is entered
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(),EarnedActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Bundle extras = getIntent().getExtras();
         //If something was sent into this activity
