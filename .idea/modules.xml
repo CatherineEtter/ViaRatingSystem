@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ViaRatingSystem.iml" filepath="$PROJECT_DIR$/ViaRatingSystem.iml" />
-      <module fileurl="file://C:\Users\Nyatorru\Documents\GitHub\ViaRatingSystem\ViaRatingSystem.iml" filepath="C:\Users\Nyatorru\Documents\GitHub\ViaRatingSystem\ViaRatingSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Nyatorru\Documents\GitHub\ViaRatingSystem\app\app.iml" filepath="C:\Users\Nyatorru\Documents\GitHub\ViaRatingSystem\app\app.iml" />
     </modules>
   </component>
 </project>
