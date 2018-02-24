@@ -6,17 +6,37 @@
     tools:context="stmu_cs.viaratingsystem.activity_qrcode">
 
     <TextView
+        android:id="@+id/yourpoints_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:textSize="25dp"
         android:layout_centerHorizontal="true"
-        android:text="Scan a QR code now"/>
-    <Button
+        android:text="Your Points:"/>
+    <TextView
+        android:id="@+id/points_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="SCAN"
-        android:id="@+id/scan_btn"/>
+        android:layout_below="@id/yourpoints_txt"
+        android:textSize="50dp"
+        android:text="10"/>
+    <Button
+        android:id="@+id/redeem_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/points_txt"
+        android:textSize="25dp"
+        android:text="REDEEM"
+        />
+    <Button
+        android:id="@+id/scan_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/redeem_btn"
+        android:textSize="25dp"
+        android:text="SCAN"/>
 
 </android.widget.RelativeLayout>
