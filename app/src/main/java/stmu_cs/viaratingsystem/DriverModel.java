@@ -18,7 +18,7 @@ public class DriverModel implements Serializable {
     public String getLastName() { return lastName; }
 
     public int getIdName() { return id; }
-    
+
     public int getCurrentBus() { return currentBus; }
 
     public double getCurrentRatting() { return currentRating; }

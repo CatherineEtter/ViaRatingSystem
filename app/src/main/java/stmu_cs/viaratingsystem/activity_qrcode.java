@@ -3,6 +3,7 @@ package stmu_cs.viaratingsystem;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -64,7 +65,10 @@ public class activity_qrcode extends AppCompatActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if(result != null) {
             if(result.getContents() == null) {
-                Toast.makeText(this,"Scan cancelled",Toast.LENGTH_LONG).show();
+                //Toast toast = Toast.makeText(this,"Scan cancelled",Toast.LENGTH_LONG).show();
+                Toast toast = Toast.makeText(getBaseContext(),"Scan Cancelled",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL,0,0);
+                toast.show();
             }
             else {
                 user.points += 2;

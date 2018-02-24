@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,8 +46,17 @@ public class RatingActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(),EarnedActivity.class);
-                startActivity(intent);
+                Float rating = ratingBar.getRating();
+                if(ratingBar.getRating() == 0) {
+
+                    Toast toast = Toast.makeText(getBaseContext(),"Please enter a rating",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL,0,0);
+                    toast.show();
+                }
+                else {
+                    Intent intent = new Intent(getBaseContext(),EarnedActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -55,13 +65,6 @@ public class RatingActivity extends AppCompatActivity {
         if(extras != null) {
 
             String sarray = extras.getString("data");
-/*
-            ValueEventListener listener = new ValueEventListener() {
-                // ...
-            };
-            ref.addValueEventListener(listener);
-
-*/
 
             //temporarily appends
             comments.append(sarray);

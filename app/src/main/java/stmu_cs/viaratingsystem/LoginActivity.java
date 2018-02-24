@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.service.autofill.Dataset;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,7 +41,10 @@ public class LoginActivity extends AppCompatActivity {
                     EditText email_edittxt = (EditText) findViewById(R.id.emailInput);
                     final String semail_edittxt = email_edittxt.getText().toString();
                     if(semail_edittxt.length() == 0) {
-                        Toast.makeText(getApplicationContext(),"Email cannot be blank!",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(),"Email cannot be blank!",Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(getBaseContext(),"Email cannot be blank!",Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL,0,0);
+                        toast.show();
                     }
                     else {
                         //user = new UserModel(editText.getText().toString().toLowerCase(), "34567890", "wordpass", 0);
