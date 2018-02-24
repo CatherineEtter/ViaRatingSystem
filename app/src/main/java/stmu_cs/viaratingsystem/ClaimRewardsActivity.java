@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,6 +45,12 @@ public class ClaimRewardsActivity extends AppCompatActivity{
                 if(user.points >= 100) {
                     user.points -= 100;
                     upDateUserDB(user);
+                    progressBar.setProgress(user.points);
+                    Toast.makeText(getApplicationContext(),"You claimed Reward 1!. Remaining point is "+user.points,Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"You don't have enough points !",Toast.LENGTH_SHORT).show();
                 }
             }
         });
