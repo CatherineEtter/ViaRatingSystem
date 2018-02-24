@@ -18,6 +18,7 @@ public class activity_qrcode extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
+        UserModel user = (UserModel) intent.getSerializableExtra("User");
         String value = intent.getStringExtra("start");
         setContentView(R.layout.activity_qrcode);
         scan_btn = findViewById(R.id.scan_btn);

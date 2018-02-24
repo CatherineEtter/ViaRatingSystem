@@ -14,18 +14,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -34,9 +25,6 @@ public class LoginActivity extends AppCompatActivity {
     Button button;
     EditText editText;
     DatabaseReference reference;
-    Query query;
-//    Gson gson;
-//    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +61,6 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                         );
 
-//                        Intent intent = new Intent(LoginActivity.this, activity_qrcode.class);
-//                        intent.putExtra("QRActivity", "start");
-//                        LoginActivity.this.startActivity(intent);
-
                     }
                 }
             }
@@ -95,6 +79,10 @@ public class LoginActivity extends AppCompatActivity {
 
         reference.updateChildren(userMap);
 
+        Intent intent = new Intent(LoginActivity.this, activity_qrcode.class);
+        intent.putExtra("User", user);
+        LoginActivity.this.startActivity(intent);
+
     }
 
     private Boolean userExists(String emailEntered, DataSnapshot snapshot) {
@@ -108,6 +96,11 @@ public class LoginActivity extends AppCompatActivity {
                 String password = snapshot.child(userId).child("password").getValue().toString();
 
                 user = new UserModel(email, id, password, points);
+
+                Intent intent = new Intent(LoginActivity.this, activity_qrcode.class);
+                intent.putExtra("User", user);
+                LoginActivity.this.startActivity(intent);
+
                 return (true);
             }
         }

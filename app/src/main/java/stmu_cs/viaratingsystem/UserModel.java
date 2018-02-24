@@ -2,6 +2,7 @@ package stmu_cs.viaratingsystem;
 
 import com.google.firebase.database.DatabaseReference;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Map;
  * Created by mchri on 2/23/2018.
  */
 
-public class UserModel {
+public class UserModel implements Serializable {
     public String email;
     public String userId;
     public String password;
