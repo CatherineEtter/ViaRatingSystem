@@ -3,10 +3,16 @@ package stmu_cs.viaratingsystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +27,7 @@ public class RatingActivity extends AppCompatActivity {
     EditText busNumber;
     EditText comments;
     RatingBar ratingBar;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,14 @@ public class RatingActivity extends AppCompatActivity {
         if(extras != null) {
 
             String sarray = extras.getString("data");
+/*
+            ValueEventListener listener = new ValueEventListener() {
+                // ...
+            };
+            ref.addValueEventListener(listener);
+
+*/
+
             //temporarily appends
             comments.append(sarray);
         }
