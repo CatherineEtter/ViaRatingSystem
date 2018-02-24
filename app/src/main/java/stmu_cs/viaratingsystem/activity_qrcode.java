@@ -76,6 +76,7 @@ public class activity_qrcode extends AppCompatActivity {
                 upDateUserDB(user);
                 Intent intent = new Intent(getBaseContext(),RatingActivity.class);
                 intent.putExtra("data",result.getContents());
+                intent.putExtra("User",user);
                 //go to rating screen
                 startActivity(intent);
             }

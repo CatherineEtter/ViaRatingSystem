@@ -29,6 +29,7 @@ public class RatingActivity extends AppCompatActivity {
     EditText busNumber;
     EditText comments;
     RatingBar ratingBar;
+    //private UserModel user;
     DatabaseReference reference;
 
     @Override
@@ -41,6 +42,7 @@ public class RatingActivity extends AppCompatActivity {
         comments = findViewById(R.id.comments_input);
         ratingBar = findViewById(R.id.rating_bar);
         submitButton = findViewById(R.id.submit_rating_button);
+        //user = (UserModel) getIntent().getSerializableExtra("User");
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +55,7 @@ public class RatingActivity extends AppCompatActivity {
                     toast.show();
                 }
                 else {
+                    //user.points += 10;
                     Intent intent = new Intent(getBaseContext(),EarnedActivity.class);
                     startActivity(intent);
                 }
