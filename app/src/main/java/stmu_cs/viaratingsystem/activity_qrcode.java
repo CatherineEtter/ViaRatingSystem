@@ -1,6 +1,7 @@
 package stmu_cs.viaratingsystem;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -9,20 +10,28 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.sql.Driver;
 import java.util.HashMap;
 import java.util.Map;
 
 public class activity_qrcode extends AppCompatActivity {
     private Button scan_btn;
     private Button redeem_btn;
+    private Button rate_btn;
     private UserModel user;
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
     private TextView pointsDisplay;
+    private String resultContents;
+    private DatabaseReference driversReference;
+    DriverModel driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +42,9 @@ public class activity_qrcode extends AppCompatActivity {
         setContentView(R.layout.activity_qrcode);
         scan_btn = findViewById(R.id.scan_btn);
         redeem_btn = findViewById(R.id.redeem_btn);
-        pointsDisplay = findViewById(R.id.yourpoints_txt);
+        rate_btn = findViewById(R.id.rate_btn);
+        rate_btn.setEnabled(false);
+        pointsDisplay = findViewById(R.id.points_txt);
 
         pointsDisplay.setText(Integer.toString(user.points));
 
@@ -58,6 +69,30 @@ public class activity_qrcode extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        rate_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                driversReference = FirebaseDatabase.getInstance().getReference().child("Drivers");
+                driversReference.addListenerForSingleValueEvent(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(searchForDriver(Integer.parseInt(resultContents), dataSnapshot)) {
+                                    //do a thing
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                //handle error
+                            }
+                        }
+                );
+
+            }
+        });
+
     }
 
     @Override
@@ -74,17 +109,45 @@ public class activity_qrcode extends AppCompatActivity {
                 user.points += 2;
                 pointsDisplay.setText(Integer.toString(user.points));
                 upDateUserDB(user);
-                Intent intent = new Intent(getBaseContext(),RatingActivity.class);
-                intent.putExtra("data",result.getContents());
-                intent.putExtra("User",user);
-                //go to rating screen
-                startActivity(intent);
+                rate_btn.setEnabled(true);
+                resultContents = result.getContents();
+
+
             }
         }
         else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+    private boolean searchForDriver(int busNumber, DataSnapshot dataSnapshot) {
+        for(DataSnapshot child : dataSnapshot.getChildren()) {
+            String driverId = child.getKey();
+            int currentBus = Integer.parseInt(dataSnapshot.child(driverId).child("currentBus").getValue().toString());
+            if(currentBus == busNumber) {
+                Toast.makeText(getApplicationContext(), "Driver Found!", Toast.LENGTH_SHORT).show();
+                String fName = dataSnapshot.child(driverId).child("firstName").getValue().toString();
+                String lName = dataSnapshot.child(driverId).child("lastName").getValue().toString();
+                Double rating = Double.parseDouble(dataSnapshot.child(driverId).child("currentRating").getValue().toString());
+//                driver.currentBus = currentBus;
+//                driver.id = driverId;
+//                driver.firstName = fName;
+//                driver.lastName = lName;
+//                driver.currentRating = rating;
+                driver = new DriverModel(fName, lName, driverId, currentBus, rating);
+                Intent intent = new Intent(getBaseContext(),RatingActivity.class);
+                System.out.print("++++++++++++++++++++++++++\n" + driver.firstName + "\n++++++++++++++++++++++++");
+                intent.putExtra("Driver",driver);
+                intent.putExtra("User",user);
+                //go to rating screen
+                startActivity(intent);
+                return(true);
+            }
+        }
+        return(false);
+    }
+
+
 
     private void upDateUserDB(UserModel user) {
         Map<String, Object> userMap = new HashMap<>();

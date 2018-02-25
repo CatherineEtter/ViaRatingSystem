@@ -3,6 +3,7 @@ package stmu_cs.viaratingsystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -31,11 +32,14 @@ public class NewUserActivity extends AppCompatActivity {
     EditText confirmPasswordInput;
     Button createUserButton;
     UserModel user;
+    ActionBar actionBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");;
         emailInput = findViewById(R.id.newEmailInput);
         passwordInput = findViewById(R.id.newPasswordInput);
@@ -139,5 +143,11 @@ public class NewUserActivity extends AppCompatActivity {
 
         reference.updateChildren(userMap);
         user = newUser;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

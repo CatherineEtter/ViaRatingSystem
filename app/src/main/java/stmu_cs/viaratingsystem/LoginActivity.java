@@ -92,15 +92,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-//    private void createNewUser(DatabaseReference reference, String email) {
-//
-//
-//        Intent intent = new Intent(LoginActivity.this, activity_qrcode.class);
-//        intent.putExtra("User", user);
-//        LoginActivity.this.startActivity(intent);
-//
-//    }
-
     private Boolean userExists(String emailEntered, String passwordEntered, DataSnapshot snapshot) {
         for(DataSnapshot child : snapshot.getChildren()) {
             String userId = child.getKey();

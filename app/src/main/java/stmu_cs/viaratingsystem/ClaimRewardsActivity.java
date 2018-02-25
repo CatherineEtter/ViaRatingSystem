@@ -2,6 +2,7 @@ package stmu_cs.viaratingsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ public class ClaimRewardsActivity extends AppCompatActivity{
     Button claimButton;
     UserModel user;
     DatabaseReference reference;
+    ActionBar actionBar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,8 @@ public class ClaimRewardsActivity extends AppCompatActivity{
         Intent intent = getIntent();
         user = (UserModel) intent.getSerializableExtra("User");
         setContentView(R.layout.activity_claim_rewards);
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         progressBar = findViewById(R.id.progress_bar);
         textView = findViewById(R.id.reward_name);
         claimButton = findViewById(R.id.claim_button);
@@ -61,5 +65,11 @@ public class ClaimRewardsActivity extends AppCompatActivity{
         userMap.put(user.userId, user);
 
         reference.updateChildren(userMap);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
