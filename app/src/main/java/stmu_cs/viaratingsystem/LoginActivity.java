@@ -68,7 +68,6 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         if(!userExists(semail_edittxt.toLowerCase(), spassword_edittxt, dataSnapshot)) {
                                             Toast.makeText(getApplicationContext(), "Email or password incorrect", Toast.LENGTH_SHORT).show();
-                                            //createNewUser(reference, semail_edittxt.toLowerCase());
                                         }
                                     }
 
@@ -87,31 +86,20 @@ public class LoginActivity extends AppCompatActivity {
         newUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(LoginActivity.this, NewUserActivity.class);
+                startActivity(intent);
             }
         });
     }
 
-    private void createNewUser(DatabaseReference reference, String email) {
-        Random random = new Random();
-        long id = random.nextLong();
-        while(id < 0) {
-            id = random.nextLong();
-        }
-        String userId = Long.toString(id);
-
-        UserModel newUser = new UserModel(email, userId, "password", 0);
-        Map<String, Object> userMap = new HashMap<>();
-        user = newUser;
-        userMap.put(newUser.userId, newUser);
-
-        reference.updateChildren(userMap);
-
-        Intent intent = new Intent(LoginActivity.this, activity_qrcode.class);
-        intent.putExtra("User", user);
-        LoginActivity.this.startActivity(intent);
-
-    }
+//    private void createNewUser(DatabaseReference reference, String email) {
+//
+//
+//        Intent intent = new Intent(LoginActivity.this, activity_qrcode.class);
+//        intent.putExtra("User", user);
+//        LoginActivity.this.startActivity(intent);
+//
+//    }
 
     private Boolean userExists(String emailEntered, String passwordEntered, DataSnapshot snapshot) {
         for(DataSnapshot child : snapshot.getChildren()) {

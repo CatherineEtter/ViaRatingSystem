@@ -24,6 +24,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".EarnedActivity"></activity>
         <activity android:name=".ClaimRewardsActivity"></activity>
+        <activity android:name=".NewUserActivity"/>
     </application>
 
 
