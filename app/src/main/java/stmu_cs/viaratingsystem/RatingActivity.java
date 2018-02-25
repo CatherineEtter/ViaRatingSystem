@@ -59,7 +59,7 @@ public class RatingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Double rating = Double.parseDouble(Float.toString(ratingBar.getRating()));
                 if(rating == 0) {
-
+                    //Rating is 0
                     Toast toast = Toast.makeText(getBaseContext(),"Please enter a rating",Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL,0,0);
                     toast.show();
