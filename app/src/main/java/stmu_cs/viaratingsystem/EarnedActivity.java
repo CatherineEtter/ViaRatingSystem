@@ -21,8 +21,7 @@ public class EarnedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_earned);
 
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        final UserModel user = (UserModel) getIntent().getSerializableExtra("User");
 
         dashboard_btn = findViewById(R.id.dashboard_btn);
         points_earned_txt = findViewById(R.id.points_earned_txt);
@@ -33,15 +32,12 @@ public class EarnedActivity extends AppCompatActivity {
         dashboard_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getBaseContext(),activity_qrcode.class);
-//                startActivity(intent);
-                onSupportNavigateUp();
+                Intent intent = new Intent(getBaseContext(),activity_qrcode.class);
+                intent.putExtra("User", user);
+                startActivity(intent);
             }
         });
     }
 
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
+
 }
