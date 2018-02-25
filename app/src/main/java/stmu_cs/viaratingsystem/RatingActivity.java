@@ -67,9 +67,10 @@ public class RatingActivity extends AppCompatActivity {
                 else {
                     user.points += 10;
                     Intent intent = new Intent(getBaseContext(),EarnedActivity.class);
+                    intent.putExtra("User", user);
                     startActivity(intent);
 
-                    getIntent().putExtra("User", user);
+
 
                     reference = FirebaseDatabase.getInstance().getReference().child("Users");
                     driversReference = FirebaseDatabase.getInstance().getReference().child("Drivers");

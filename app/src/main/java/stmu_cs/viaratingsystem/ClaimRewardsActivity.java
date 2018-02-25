@@ -51,6 +51,10 @@ public class ClaimRewardsActivity extends AppCompatActivity{
                     upDateUserDB(user);
                     progressBar.setProgress(user.points);
                     Toast.makeText(getApplicationContext(),"You claimed Reward 1!. Remaining point is "+user.points,Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(ClaimRewardsActivity.this, activity_qrcode.class);
+                    intent.putExtra("User", user);
+                    startActivity(intent);
                 }
                 else
                 {
